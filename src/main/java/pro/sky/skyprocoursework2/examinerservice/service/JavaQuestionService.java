@@ -11,19 +11,31 @@ public class JavaQuestionService implements QuestionService {
 
 
     private final List<Question> questions = new ArrayList<>(List.of(
-            new Question("Дважды два?", "Равно четыре"),
-            new Question ("Какого цвета небо?", "Небо голубое"),
-            new Question("Время обеда?","12:00")));
+            new Question("Какие условные операторы вы знаете?",
+                    "Их всего 3 типа: if () и его разновидности, switch, Тернарный оператор"),
+            new Question("Какие циклы вы знаете?",
+                    "for, while, do-while"),
+            new Question("Методы каких типов бывают?",
+                    "Возвращающие результат, Не возвращающие результат")));
 
 
     @Override
     public Question add(String question, String answer) {
         Question question1 = new Question(question, answer);
-        if (questions.contains(question1)){
-            throw new IllegalArgumentException();
+        if (questions.contains(question1)) {
+            throw new IllegalArgumentException("вопрос уже есть");
         }
         questions.add(question1);
         return question1;
+    }
+
+    @Override
+    public Question add(Question question) {
+        if (questions.contains(question)) {
+            throw new IllegalArgumentException("вопрос уже есть");
+        }
+        questions.add(question);
+        return question;
     }
 
 
@@ -32,7 +44,7 @@ public class JavaQuestionService implements QuestionService {
         if (questions.remove(question)) {
             return question;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("такого вопроса нет");
         }
 
     }
@@ -49,10 +61,11 @@ public class JavaQuestionService implements QuestionService {
 
         return questions.get(i);
     }
+
     @Override
-    public Question find(String question){
-       return questions.stream()
-                .filter(e->e.getQuestion().equals(question))
+    public Question find(String question) {
+        return questions.stream()
+                .filter(e -> e.getQuestion().equals(question))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
 
@@ -60,14 +73,18 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public String findQuestion(String question){
+    public String findQuestion(String question) {
         return questions.stream()
-                .filter(e->e.getQuestion().equals(question))
+                .filter(e -> e.getQuestion().equals(question))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new)
                 .getAnswer();
 
 
+    }
+
+    public int size() {
+        return questions.size();
     }
 
 

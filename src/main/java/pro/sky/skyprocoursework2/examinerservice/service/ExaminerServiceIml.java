@@ -14,14 +14,14 @@ public class ExaminerServiceIml implements ExaminerService{
 
     private final QuestionService questionService;
 
-    public ExaminerServiceIml(JavaQuestionService questionService) {
+    public ExaminerServiceIml(QuestionService questionService) {
         this.questionService = questionService;
     }
 
     @Override
     public Collection<Question> getQuestion(int amount) {
-        if (amount>questionService.getAll().size()){
-            throw new IllegalArgumentException();
+        if (amount>questionService.size()){
+            throw new IllegalArgumentException("Всего максимум вопросов = " + questionService.size());
         }
         Set<Question> setQuestions=new HashSet<>();
         while (setQuestions.size()<amount){
