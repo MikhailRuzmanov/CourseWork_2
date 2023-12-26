@@ -83,5 +83,9 @@ public class JavaQuestionService implements QuestionService {
 
     }
 
+    public int size() {
+        return questions.size();
+    }
+
 
 }

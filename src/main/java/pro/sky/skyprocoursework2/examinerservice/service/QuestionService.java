@@ -12,4 +12,5 @@ public interface QuestionService {
     Question getRandomQuestion();
     Question find(String question);
     String findQuestion(String question);
+    int size();
 }

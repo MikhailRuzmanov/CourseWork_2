@@ -8,9 +8,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.skyprocoursework2.examinerservice.domain.Question;
 import pro.sky.skyprocoursework2.examinerservice.service.ExaminerServiceIml;
-import pro.sky.skyprocoursework2.examinerservice.service.JavaQuestionService;
 import pro.sky.skyprocoursework2.examinerservice.service.QuestionService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,17 +29,20 @@ public class ExamServiceTest {
     private static final Question QUESTION4 = new Question("Прогресс4", "Корпус4");
     private static final Question QUESTION5 = new Question("Прогресс5", "Корпус5");
 
+
+
+
     @Test
     public void getQuestionTestOnThrow(){
-       when(questionService.getAll().size()).thenReturn(5);
-        assertThrows(IllegalArgumentException.class, ()->out.getQuestion(7));
+      when(questionService.size()).thenReturn(2);
+       assertThrows(IllegalArgumentException.class, ()->out.getQuestion(3));
     }
 
     @Test
     public void getQuestionTest(){
         when(questionService.getRandomQuestion())
                 .thenReturn(QUESTION1, QUESTION2,QUESTION3,QUESTION4,QUESTION5);
-        when(questionService.getAll().size()).thenReturn(10);
+        when(questionService.size()).thenReturn(10);
         assertEquals(out.getQuestion(5).size(),5);
     }
 
@@ -47,7 +50,7 @@ public class ExamServiceTest {
     public void getQuestionTestOnContains(){
         when(questionService.getRandomQuestion())
                 .thenReturn(QUESTION1, QUESTION2,QUESTION3,QUESTION4,QUESTION5);
-        when(questionService.getAll().size()).thenReturn(10);
+        when(questionService.size()).thenReturn(10);
         assertTrue(out.getQuestion(5).contains(QUESTION3));
     }
 
